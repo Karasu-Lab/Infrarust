@@ -1,26 +1,30 @@
 # Infrarust
 
-Infrarust reverse proxy deployed on the Coolify host.
+Infrarust reverse proxy deployed on the Coolify host by GitHub Actions.
 
-Each configured domain is forwarded to a Minecraft server over the Cloudflare One
-virtual network. While a server is not reachable, the proxy answers with the
-maintenance MOTD and rejects logins with the maintenance message. While it is
-reachable, the MOTD is the one reported by the server.
+The main domain is forwarded to a Minecraft server over the Cloudflare One virtual
+network. While that server is not reachable, the proxy answers with the maintenance
+MOTD and rejects logins with the maintenance message. While it is reachable, the
+MOTD is the one reported by the server. The auth domain is forwarded to the mc-auth
+gateway on the Coolify host, which listens on port 25566.
 
-| Server | Domain | Backend port |
+| Server | Domain | Backend |
 | --- | --- | --- |
-| main | `MC_DOMAIN` | 25565 |
-| auth | `MC_AUTH_DOMAIN` | 25566 |
+| main | `MC_DOMAIN` | `MC_BACKEND_ADDRESS` (port 25565 on the virtual network) |
+| auth | `MC_AUTH_DOMAIN` | `MC_AUTH_BACKEND_ADDRESS` (port 25566 on the Coolify host) |
 
-## Deploy on Coolify
+## Deploy
 
-- Build pack: Dockerfile
-- Build arguments:
-  - `MC_DOMAIN` — domain players connect to for the main server
-  - `MC_BACKEND_ADDRESS` — `<virtual network IP>:25565` of the machine running the main server
-  - `MC_AUTH_DOMAIN` — domain players connect to for the auth server
-  - `MC_AUTH_BACKEND_ADDRESS` — `<virtual network IP>:25566` of the machine running the auth server
-- Port mapping: `25565:25565`
+`.github/workflows/infrarust-deploy.yml` builds the image, pushes it to GHCR on
+`main`, and triggers the Coolify application tagged `infrarust` through the Coolify API.
+
+Repository variables (build arguments): `MC_DOMAIN`, `MC_BACKEND_ADDRESS`,
+`MC_AUTH_DOMAIN`, `MC_AUTH_BACKEND_ADDRESS`, `COOLIFY_HOST`.
+
+Secret in the `production` environment: `CI_DEPLOY_TOKEN`.
+
+The Coolify application uses the Docker image `ghcr.io/<owner>/infrarust:latest`
+with the port mapping `25565:25565`.
 
 ## Layout
 
