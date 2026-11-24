@@ -1,0 +1,11 @@
+domains = ["@MC_DOMAIN@"]
+addresses = ["@MC_BACKEND_ADDRESS@"]
+proxy_mode = "passthrough"
+disconnect_message = "§eメンテナンス中です。しばらくしてからもう一度お試しください。"
+
+[timeouts]
+connect = "2s"
+
+[motd.unreachable]
+text = "§6メンテナンス中"
+version_name = "Maintenance"
