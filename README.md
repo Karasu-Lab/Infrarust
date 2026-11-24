@@ -13,13 +13,17 @@ gateway on the Coolify host, which listens on port 25566.
 | main | `MC_DOMAIN` | `MC_BACKEND_ADDRESS` (port 25565 on the virtual network) |
 | auth | `MC_AUTH_DOMAIN` | `MC_AUTH_BACKEND_ADDRESS` (port 25566 on the Coolify host) |
 
+The auth domain is resolved through an SRV record, and the Minecraft client sends
+the SRV target as the host name in the handshake, so `MC_AUTH_SRV_TARGET` (the SRV
+target host) is routed to the auth server as well.
+
 ## Deploy
 
 `.github/workflows/infrarust-deploy.yml` builds the image, pushes it to GHCR on
 `main`, and triggers the Coolify application identified by `COOLIFY_APPLICATION_UUID` through the Coolify API.
 
 Repository variables (build arguments): `MC_DOMAIN`, `MC_BACKEND_ADDRESS`,
-`MC_AUTH_DOMAIN`, `MC_AUTH_BACKEND_ADDRESS`, `COOLIFY_HOST`, `COOLIFY_APPLICATION_UUID`.
+`MC_AUTH_DOMAIN`, `MC_AUTH_SRV_TARGET`, `MC_AUTH_BACKEND_ADDRESS`, `COOLIFY_HOST`, `COOLIFY_APPLICATION_UUID`.
 
 Secret in the `production` environment: `CI_DEPLOY_TOKEN`.
 

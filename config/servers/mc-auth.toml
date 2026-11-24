@@ -1,4 +1,4 @@
-domains = ["@MC_AUTH_DOMAIN@"]
+domains = ["@MC_AUTH_DOMAIN@", "@MC_AUTH_SRV_TARGET@"]
 addresses = ["@MC_AUTH_BACKEND_ADDRESS@"]
 proxy_mode = "passthrough"
 disconnect_message = "§eメンテナンス中です。しばらくしてからもう一度お試しください。"

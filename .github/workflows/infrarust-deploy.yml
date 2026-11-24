@@ -39,6 +39,7 @@ jobs:
             MC_DOMAIN=${{ vars.MC_DOMAIN }}
             MC_BACKEND_ADDRESS=${{ vars.MC_BACKEND_ADDRESS }}
             MC_AUTH_DOMAIN=${{ vars.MC_AUTH_DOMAIN }}
+            MC_AUTH_SRV_TARGET=${{ vars.MC_AUTH_SRV_TARGET }}
             MC_AUTH_BACKEND_ADDRESS=${{ vars.MC_AUTH_BACKEND_ADDRESS }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
