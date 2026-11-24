@@ -16,10 +16,10 @@ gateway on the Coolify host, which listens on port 25566.
 ## Deploy
 
 `.github/workflows/infrarust-deploy.yml` builds the image, pushes it to GHCR on
-`main`, and triggers the Coolify application tagged `infrarust` through the Coolify API.
+`main`, and triggers the Coolify application identified by `COOLIFY_APPLICATION_UUID` through the Coolify API.
 
 Repository variables (build arguments): `MC_DOMAIN`, `MC_BACKEND_ADDRESS`,
-`MC_AUTH_DOMAIN`, `MC_AUTH_BACKEND_ADDRESS`, `COOLIFY_HOST`.
+`MC_AUTH_DOMAIN`, `MC_AUTH_BACKEND_ADDRESS`, `COOLIFY_HOST`, `COOLIFY_APPLICATION_UUID`.
 
 Secret in the `production` environment: `CI_DEPLOY_TOKEN`.
 

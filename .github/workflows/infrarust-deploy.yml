@@ -50,6 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       COOLIFY_HOST: ${{ vars.COOLIFY_HOST }}
+      COOLIFY_APPLICATION_UUID: ${{ vars.COOLIFY_APPLICATION_UUID }}
       CI_DEPLOY_TOKEN: ${{ secrets.CI_DEPLOY_TOKEN }}
     steps:
       - name: Deploy to Coolify
@@ -57,6 +58,6 @@ jobs:
           status=$(curl --silent --show-error --location --request POST --output response.json --write-out '%{http_code}' \
             --header "Authorization: Bearer ${CI_DEPLOY_TOKEN}" \
             --header "Accept: application/json" \
-            "${COOLIFY_HOST%/}/api/v1/deploy?tag=infrarust&force=true")
+            "${COOLIFY_HOST%/}/api/v1/deploy?uuid=${COOLIFY_APPLICATION_UUID}&force=true")
           cat response.json
           test "$status" -lt 400
