@@ -1,5 +1,5 @@
 bind = "0.0.0.0:25565"
-connect_timeout = "2s"
+connect_timeout = "1s"
 unknown_domain_behavior = "default_motd"
 
 [status_cache]
